@@ -10,9 +10,6 @@
     "pre": {
       "cache": false
     },
-    "pre:husky": {
-      "cache": false
-    },
     "lint": {
       "outputs": []
     },
@@ -80,13 +77,14 @@
       "outputs": []
     },
     "link-cli": {
-      "dependsOn": ["build"]
+      "cache": false
     },
     "link-cli:dev": {
-      "dependsOn": ["build:dev"]
+      "cache": false
     },
     "unlink-cli:dev": {
-      "dependsOn": ["build:dev"]
+     "cache": false
     }
+    
   }
 }
