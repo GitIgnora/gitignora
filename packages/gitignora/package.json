@@ -1,0 +1,87 @@
+{
+	"name": "gitignora",
+	"version": "0.1.0",
+	"description": "A tool to generate .gitignore file",
+	"keywords": [],
+	"homepage": "https://github.com/INeedJobToStartWork/gitignora",
+	"bugs": "https://github.com/INeedJobToStartWork/gitignora/issues/new/choose",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/INeedJobToStartWork/gitignora",
+		"directory": "packages/gitignora"
+	},
+	"license": "MIT",
+	"author": "ineedjobtostartwork",
+	"type": "module",
+	"main": "index.js",
+	"bin": {
+		"gitignoraBuild": "./bin/app.js",
+		"gitignoraDev": "./lib/app.js"
+	},
+	"scripts": {
+		"------------------------INSTALLATION------------------------": "",
+		"------------------------UTILS------------------------": "",
+		"lint": "eslint .",
+		"lint:fix": "eslint . --fix",
+		"format": "pnpm prettier . --write && pnpm prettier . --check",
+		"clean": "turbo clean",
+		"link-cli": "pnpm unlink --global && pnpm link --global",
+		"link-cli:dev": "cd lib && pnpm unlink --global && pnpm link --global",
+		"unlink-cli:dev": "cd lib && pnpm unlink --global",
+		"------------------------BUILDS------------------------": "",
+		"build:dev": "pnpm tsup --config ./config/tsuprc/tsup.dev.ts",
+		"build:prod": "pnpm tsup --config ./config/tsuprc/tsup.prod.ts",
+		"build:npm": "pnpm npm:prepack && pnpm tsup --config ./config/tsuprc/tsup.prod.ts && pnpm npm:postpack",
+		"------------------------DEPLOYS------------------------": "",
+		"start": "turbo start",
+		"start:dev": "turbo start:dev",
+		"npm:prepack": "clean-package",
+		"npm:postpack": "clean-package restore",
+		"prepublishOnly": "pnpm build:npm",
+		"------------------------TESTS------------------------": "",
+		"test": "echo \"Error: no test specified\""
+	},
+	"lint-staged": {
+		"*": [
+			"git add .",
+			"pnpm format",
+			"pnpm lint:fix",
+			"pnpm lint"
+		]
+	},
+	"dependencies": {
+		"@clack/prompts": "^0.8.2",
+		"commander": "^12.1.0",
+		"oh-my-error": "^2.0.1"
+	},
+	"devDependencies": {
+		"@ineedj/eslintrc": "^1.2.3",
+		"@ineedj/prettierrc": "^2.0.0",
+		"@ineedj/tsconfig": "^1.0.0",
+		"@types/node": "^22.10.2",
+		"chalk": "^5.3.0",
+		"clean-package": "^2.2.0",
+		"esbuild": "^0.24.0",
+		"esbuild-plugin-copy": "^2.1.1",
+		"eslint": "^8.57.1",
+		"lint-staged": "^15.2.11",
+		"prettier": "^3.4.2",
+		"tsup": "^8.3.5",
+		"typescript": "^5.6.3"
+	},
+	"bundledDependencies": [
+		"@clack/prompts",
+		"commander",
+		"oh-my-error"
+	],
+	"packageManager": "pnpm@9.14.2",
+	"engines": {
+		"node": ">=20"
+	},
+	"publishConfig": {
+		"access": "public",
+		"directory": "dist",
+		"provenance": true,
+		"tag": "latest"
+	}
+}

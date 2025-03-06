@@ -1,28 +1,92 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "tasks": {
-    "pre": {},
-    "start": {},
-    "build": {},
-    "dts": {},
-    "lint:next": {},
-    "lint:test": {},
-    "build:npm": {
-      "inputs": ["*", "!dist"]
+    "preinstall": {
+      "cache": false
     },
-    "lint": {},
-    "lint:fix": {},
-    "link-cli": {},
-    "link-cli:dev": {},
-    "unlink-cli": {},
-    "unlink-cli:dev": {},
-    "format": {},
-    "npm:prepack": {},
-    "npm:postpack": {},
-    "prepublishOnly": {},
+    "prepare": {
+      "cache": false
+    },
+    "pre": {
+      "cache": false
+    },
+    "pre:husky": {
+      "cache": false
+    },
+    "lint": {
+      "outputs": []
+    },
+    "lint:fix": {
+      "dependsOn": ["lint"],
+      "outputs": []
+    },
+    "lint:next": {
+      "dependsOn": ["lint"],
+      "outputs": []
+    },
+    "lint:test": {
+      "dependsOn": ["lint"],
+      "outputs": []
+    },
+    "format": {
+      "outputs": []
+    },
+    "clean": {
+      "cache": false
+    },
     "dev": {
       "cache": false,
       "persistent": true
+    },
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", "lib/**"]
+    },
+    "build:dev": {
+      "dependsOn": ["^build"],
+      "outputs": ["lib/**"]
+    },
+    "build:prod": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"]
+    },
+    "build:npm": {
+      "dependsOn": ["^build"],
+      "inputs": ["*", "!dist"],
+      "outputs": ["dist/**"]
+    },
+    "start:dev": {
+      "dependsOn": ["build:dev"],
+      "cache": false
+    },
+    "start": {
+      "dependsOn": ["build"],
+      "cache": false
+    },
+    "npm:prepack": {
+      "dependsOn": ["build"]
+    },
+    "npm:postpack": {
+      "dependsOn": ["build"]
+    },
+    "npm:version": {
+      "cache": false
+    },
+    "npm:publish": {
+      "cache": false
+    },
+    "test": {
+      "dependsOn": ["build"],
+      "outputs": []
+    },
+    "link-cli": {
+      "dependsOn": ["build"]
+    },
+    "link-cli:dev": {
+      "dependsOn": ["build:dev"]
+    },
+    "unlink-cli:dev": {
+      "dependsOn": ["build:dev"]
     }
   }
 }
